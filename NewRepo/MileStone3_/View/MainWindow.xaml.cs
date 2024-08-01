@@ -9,25 +9,24 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using IntroSE.Kanban.Backend.ServiceLayer;
-using KanBan_2024.ServiceLayer;
+using MileStone3_.Model;
+using MileStone3_.ViewModel;
 
-
-namespace MileStone3_
+namespace MileStone3_.View
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainDataContext ViewModel { get; set; }
-        public ServiceFactory Service { get; set; }
+        public MainViewModel ViewModel { get; set; }
 
         public MainWindow()
         {
             InitializeComponent();
-            ViewModel = new MainDataContext();
-            DataContext = ViewModel; // Set the DataContext for data binding hello
-            Service = new ServiceFactory();
+            ViewModel = new MainViewModel();
+            DataContext = ViewModel; // Set the DataContext for data binding 
+
 
         }
 
@@ -36,12 +35,14 @@ namespace MileStone3_
             // Update ViewModel properties with values from the controls
             ViewModel.Username = UsernameTextBox.Text;
             ViewModel.Password = PasswordBox.Password; // Password is handled separately
-            string s = Service.US.Register(ViewModel.Username, ViewModel.Password);
-            
-            
 
-            // Display the values in a message box for verification
-            MessageBox.Show($"Registering Username: {ViewModel.Username}\nPassword: {ViewModel.Password}" + "Registration Infon\n" + s);
+            bool successful = ViewModel.Register();
+            if (successful)
+            {
+                Boards b = new Boards(UsernameTextBox.Text, PasswordBox.Password);
+                b.Show();
+                this.Close();
+            }
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
@@ -49,12 +50,15 @@ namespace MileStone3_
             // Update ViewModel properties with values from the controls
             ViewModel.Username = UsernameTextBox.Text;
             ViewModel.Password = PasswordBox.Password; // Password is handled separately
-            string s = Service.US.Login(ViewModel.Username, ViewModel.Password);
-            
 
 
-            // Display the values in a message box for verification
-            MessageBox.Show($"Logging in Username: {ViewModel.Username}\nPassword: {ViewModel.Password}", "Login Info");
+            bool successful = ViewModel.Login();
+            if (successful)
+            {
+                Boards b = new Boards(UsernameTextBox.Text, PasswordBox.Password);
+                b.Show();
+                this.Close();
+            }
         }
 
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
