@@ -41,7 +41,7 @@ namespace MileStone3_
             
 
             // Display the values in a message box for verification
-            MessageBox.Show($"Registering Username: {ViewModel.Username}\nPassword: {ViewModel.Password}", "Registration Info");
+            MessageBox.Show($"Registering Username: {ViewModel.Username}\nPassword: {ViewModel.Password}" + "Registration Infon\n" + s);
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)

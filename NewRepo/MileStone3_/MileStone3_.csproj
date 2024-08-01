@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\BGU-SE-Courses\kanban-2024-2024-05\Backend\Backend.csproj" />
+    <ProjectReference Include="..\Backend\Backend.csproj" />
   </ItemGroup>
 
 </Project>
