@@ -26,7 +26,7 @@ namespace MileStone3_
         {
             InitializeComponent();
             ViewModel = new MainDataContext();
-            DataContext = ViewModel; // Set the DataContext for data binding
+            DataContext = ViewModel; // Set the DataContext for data binding hello
             Service = new ServiceFactory();
 
         }
