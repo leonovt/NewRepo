@@ -28,34 +28,8 @@ namespace Frontend.Model
             this.Service = new ServiceFactory();
             Service.DeleteData();
             Service.LoadData();
-/*
-            if(flag){
-                Service.DeleteData();
-                flag = false;
-            }
-*/            
-            
-            //if(flag){
-            //string email ="mail@mail.com";
-            //string board1 = "board1";
-            //Service.SignIn(email,"Password1");
-            //Service.CreateBoard(email,board1);
-            //Service.AddTask(email,board1,"title1","describtion1", DateTime.Now.AddDays(1));
-            //Service.AssignTask(email,board1,0,0,email);
-            //Service.AdvanceTask(email,board1,0);
-            //Service.AdvanceTask(email,board1,0);
 
-            //Service.AddTask(email,board1,"title2","describtion2", DateTime.Now.AddDays(2));
-            //Service.AssignTask(email,board1,0,1,email);
-            //Service.AdvanceTask(email,board1,1);
-            //Service.AddTask(email,board1,"title3","describtion3", DateTime.Now.AddDays(3));
 
-            //Service.CreateBoard(email,"board2");
-            //Service.Logout(email);
-            //flag = false;
-            
-            //}
-           
 
 
         }
@@ -162,8 +136,6 @@ namespace Frontend.Model
 
                 BoardModel.Add(new BoardModel(this ,email ,b.boardOwner, b.boardName, users));
 
-                //BoardSL b = JsonSerializer.Deserialize<BoardSL>(res.ReturnValue.ToString());
-                //BoardModel.Add(new BoardModel(this ,email ,b.boardName, b.Members));
             } 
             return BoardModel;
         }

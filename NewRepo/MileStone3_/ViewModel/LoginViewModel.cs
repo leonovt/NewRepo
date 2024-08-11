@@ -74,8 +74,8 @@ namespace Frontend.ViewModel
         public MainViewModel()
         {
             this.Controller = new BackendController();
-            this.Username ="mail@mail.com";
-            this.Password = "Password1";
+            this.Username ="ILove@RonShefland.com";
+            this.Password = "AndRonZiskind1";
 
         }
    }
