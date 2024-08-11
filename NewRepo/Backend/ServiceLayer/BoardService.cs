@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using IntroSE.Kanban.Backend.BusinessLayer;
 
 
@@ -160,6 +161,22 @@ namespace KanBan_2024.ServiceLayer
                 string name = BF.GetColumnName(email, boardName, columnOrdinal);
                 Response response = new Response(name, null);
                 return JsonSerializer.Serialize(response);
+            }
+            catch (Exception ex)
+            {
+                return JsonSerializer.Serialize(new Response(null, ex.Message));
+            }
+        }
+
+
+        public string GetOneBoard(int bID)
+        {
+            try
+            {
+                BoardBL b = BF.GetOneBoard(bID);
+                Response response = new Response(new BoardSL(b.BoardName, b.boardID, b.ownerEmail), null);
+                string toReturn = JsonSerializer.Serialize(response);
+                return toReturn;
             }
             catch (Exception ex)
             {
@@ -326,6 +343,33 @@ namespace KanBan_2024.ServiceLayer
             catch (Exception ex)
             {
                 return JsonSerializer.Serialize(new Response(null, ex.Message));
+            }
+        }
+        public Response GetBoard(string email, int id)
+        {
+
+            try
+            {
+                BoardBL board = BF.GetOneBoard(id);
+                Response response = new Response(new BoardSL(board.BoardName,board.boardID,board.ownerEmail), null);
+                return response;
+            }
+            catch (Exception ex)
+            {
+                return new Response(null,ex.Message);
+            }
+        }
+
+        public List<string> GetBoardUsers(int id)
+        {
+            try
+            {
+                List<string> users = BF.GetBoardUsers(id);
+                return users;
+            }
+            catch (Exception ex)
+            {
+                return null;
             }
         }
     }

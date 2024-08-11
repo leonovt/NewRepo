@@ -1,18 +1,41 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MileStone3_.Model
+namespace Frontend.Model
 {
-    public class UserModel
+    public class UserModel : NotifiableModelObject
     {
-        public UserModel(String username, String password) {
-            this.password = password;
-            this.username = username;   
+
+        private string _email;
+        internal string Email
+        {
+            get => _email;
+            set
+            {
+                _email = value;
+                RaisePropertyChanged("Email");
+            }
         }
-        public string username {  get; set; }
-        public string password { get; set; }
+
+
+
+        public UserBoardsModel GetBoards()
+        {
+            return new UserBoardsModel(Controller, this);
+        }
+
+
+
+        public UserModel(BackendController controller, string email) : base(controller)
+        {
+            this.Email = email;
+
+        }
+
     }
+    
 }

@@ -1,4 +1,8 @@
-﻿using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -6,65 +10,47 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using IntroSE.Kanban.Backend.ServiceLayer;
-using MileStone3_.Model;
-using MileStone3_.ViewModel;
+using Frontend.Model;
+using Frontend.ViewModel;
 
-namespace MileStone3_.View
+namespace Frontend.View
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainViewModel ViewModel { get; set; }
+        private MainViewModel viewModel;
 
         public MainWindow()
-        {
+        { 
             InitializeComponent();
-            ViewModel = new MainViewModel();
-            DataContext = ViewModel; // Set the DataContext for data binding 
-
+            this.DataContext = new MainViewModel();
+            this.viewModel = (MainViewModel)DataContext;
 
         }
 
-        private void RegisterButton_Click(object sender, RoutedEventArgs e)
+        private void Login_Click(object sender, RoutedEventArgs e)
         {
-            // Update ViewModel properties with values from the controls
-            ViewModel.Username = UsernameTextBox.Text;
-            ViewModel.Password = PasswordBox.Password; // Password is handled separately
-
-            bool successful = ViewModel.Register();
-            if (successful)
+            UserModel u = viewModel.Login();
+            if (u != null)
             {
-                Boards b = new Boards(UsernameTextBox.Text, PasswordBox.Password);
-                b.Show();
+                UserBoards boardsView = new UserBoards(u);
+                boardsView.Show();
                 this.Close();
             }
         }
 
-        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        private void Register_Click(object sender, RoutedEventArgs e)
         {
-            // Update ViewModel properties with values from the controls
-            ViewModel.Username = UsernameTextBox.Text;
-            ViewModel.Password = PasswordBox.Password; // Password is handled separately
-
-
-            bool successful = ViewModel.Login();
-            if (successful)
+            UserModel u = viewModel.Register();
+            if (u != null)
             {
-                Boards b = new Boards(UsernameTextBox.Text, PasswordBox.Password);
-                b.Show();
+                UserBoards boardsView = new UserBoards(u);
+                boardsView.Show();
                 this.Close();
             }
-        }
-
-        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            // Update ViewModel.Password when the PasswordBox content changes
-            ViewModel.Password = PasswordBox.Password;
         }
     }
 }

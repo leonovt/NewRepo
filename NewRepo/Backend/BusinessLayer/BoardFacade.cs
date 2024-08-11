@@ -787,6 +787,16 @@ namespace IntroSE.Kanban.Backend.BusinessLayer
             return new List<int>();
         }
 
+        internal BoardBL GetOneBoard(int bID)
+        {
+            if (boardsByID.ContainsKey(bID))
+            {
+                return boardsByID[bID];
+            }
+            return null;
+
+        }
+
         internal BoardBL TransferOwnership(String currentOwnerEmail, String NewOwnerEmail, String boardName)
         {
             if (!DoesUserExist(currentOwnerEmail))
@@ -879,6 +889,12 @@ namespace IntroSE.Kanban.Backend.BusinessLayer
             return t;
             
         }
+        internal List<string> GetBoardUsers(int bID)
+        {
+            return GetOneBoard(bID).users;
+        }
+
+ 
         internal String GetBoardName(int boardID)
         {
             if(!boardsByID.ContainsKey(boardID))
